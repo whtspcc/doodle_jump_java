@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+
 import javax.swing.Timer;
 import javax.swing.JFrame;
 
@@ -10,6 +11,7 @@ import entities.*;
 public class MainFrame extends JFrame {
 
     public MainFrame() throws IOException {
+        
         this.setTitle("Doodle Jump");
         this.setSize(480, 720);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,8 +31,15 @@ public class MainFrame extends JFrame {
 
         this.setVisible(true); // показывать окно
 
+        gamePanel.generateLevel();
+
         // окно всегда перерисовывается
-        Timer timer = new Timer(1000 / 60, e -> this.repaint());
-        timer.start();  
+        Timer timer = new Timer(1000 / 60, e -> {
+            player.update();
+            player.checkCollision(gamePanel.getPlatforms());
+            gamePanel.repaint();
+        });
+
+        timer.start();
     }
 }

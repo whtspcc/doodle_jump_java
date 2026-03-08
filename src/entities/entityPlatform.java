@@ -1,8 +1,10 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -11,6 +13,8 @@ import javax.imageio.ImageIO;
 public class entityPlatform {
     private double x;
     private double y;
+    private final int width = 50, height = 15;
+    private Rectangle hitbox;
 
     private BufferedImage spriteSheet;
     private BufferedImage image;
@@ -24,6 +28,8 @@ public class entityPlatform {
         this.image = spriteSheet.getSubimage(0, 0, 60, 18);
 
         this.image = resize(this.image, 50,15);
+
+        initHitbox();
     }
 
     public void paint(Graphics g) {
@@ -41,4 +47,18 @@ public class entityPlatform {
 
         return dimg;
     }  
+
+    public void drawHitbox(Graphics g) {
+        // для дебага
+        g.setColor(Color.RED);
+        g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+    }
+
+    private void initHitbox() {
+        hitbox = new Rectangle((int) x, (int) y, width, height); 
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
 }
