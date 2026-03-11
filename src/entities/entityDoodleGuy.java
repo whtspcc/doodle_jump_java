@@ -3,8 +3,10 @@ package entities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import java.util.List;
 
 
@@ -14,7 +16,7 @@ public class entityDoodleGuy {
     private final int width = 60, height = 60;
     private double velocity = 0; // скорость прыжка
     private double gravity = 0.5;// скорость падения 
-    private Rectangle hitbox; // позже добавить логику хитбоксов
+    private Rectangle hitbox; 
     private int groundLevel = 600;
     private boolean facingRight = true; // flag: смотрит ли направо?
                                         // true - да -> спрайт right
@@ -68,6 +70,7 @@ public class entityDoodleGuy {
 
     public void jump() {
         velocity = -15;
+        playJumpSound();
     }
 
     public void update() {
@@ -130,4 +133,18 @@ public class entityDoodleGuy {
         }
     }
 
+    // проигрывать звук прыжка
+    public void playJumpSound() {
+        try {
+            URL url = getClass().getResource("/res/sounds/Assets_Sounds_jump.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }

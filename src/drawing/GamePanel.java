@@ -62,12 +62,12 @@ public class GamePanel extends JPanel {
         // Рисуем платформы
         for (entityPlatform p : platforms) {
             p.paint(g);
-            p.drawHitbox(g);
+            //p.drawHitbox(g);
         }
 
         // Рисуем игрока
         player.paint(g);
-        player.drawHitbox(g);
+        //player.drawHitbox(g);
     }
 
     // рандомно генерировать платформы
@@ -89,4 +89,9 @@ public class GamePanel extends JPanel {
             currentY = y;
         }
     }
+
+    // реализовать позже логику проигрыша
+    // public void endLevel() {
+        
+    // }
 }
